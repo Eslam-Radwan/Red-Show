@@ -7,8 +7,6 @@ export const fetchPopularMovies = async() => {
     const res = await axios.get(`${API_BASE_URL}/movie/popular`, { headers:{
         "Authorization": `Bearer ${API_TOKEN}`,
         "Content-Type": 'application/json'
-    }})    
-    console.log(res.data.results);
-    
+    }})        
     return res.data.results
 }

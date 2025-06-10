@@ -1,25 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPopularMovies } from "../utils/fetchPopularMovies";
 import type { movie } from "../types/movie";
+import { memo } from "react";
 
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const MovieGrid = () => {
-    const { data, isLoading, error , isError} = useQuery({ queryKey: ['popularMovies'], queryFn: fetchPopularMovies })
+    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: fetchPopularMovies })
 
-
+    
     let content;
-    if (isLoading)
+    if (isLoading || isError)
     {
-        content =  <> Loading...</>
-            
+        const arr=[]
+        for(let i=0; i < 30; i++)
+        {
+         
+            arr.push(<div key={i} className="w-[150px] h-[230px] bg-gray-400  rounded-2xl"></div>)
+        }
+        content = arr
         
-    }
-    else if (isError)
-    {
-        content = <>
-        <p>Error Occured</p>
-        <p>{error.message}</p>
-        </>
     }
     else if (data)
     {
@@ -27,15 +26,15 @@ const MovieGrid = () => {
         
         content = data?.map((movie: movie) => {
                         return (
-                        <img key={movie.id} className="w-[200px] rounded-2xl" src={`${IMAGE_URL}/w200/${movie.poster_path}`} alt="" />
+                        <img key={movie.id} className="w-[150px]  rounded-2xl" src={`${IMAGE_URL}/w200${movie.poster_path}`} alt="" />
                         )
                     })
         
     }
     
     return (
-        <div className="max-w-[1440px] mx-auto">
-            <div className="flex flex-wrap gap-10">
+        <div className="max-w-[1440px] mx-auto  w-dvh h-dvh">
+            <div className="flex flex-wrap gap-5 -rotate-[20deg]  w-dvh h-dvh scale-125">
                 {
                     content
                 }
@@ -44,4 +43,4 @@ const MovieGrid = () => {
     )
 }
 
-export default MovieGrid;
+export default memo(MovieGrid);

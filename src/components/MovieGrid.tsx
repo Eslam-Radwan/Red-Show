@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPopularMovies } from "../utils/fetchPopularMovies";
+import { popularMovies } from "../utils/movies";
 import type { movie } from "../types/movie";
 import { memo } from "react";
 
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
 const MovieGrid = () => {
-    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: fetchPopularMovies })
+    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: popularMovies })
 
     
     let content;
     if (isLoading || isError)
     {
         const arr=[]
-        for(let i=0; i < 30; i++)
+        for(let i = 0; i < 30; i++)
         {
          
             arr.push(<div key={i} className="w-[150px] h-[230px] bg-gray-400  rounded-2xl"></div>)

@@ -19,7 +19,7 @@ const signupAction:ActionFunction = async ({request}) => {
     console.log('email',email);
     console.log('password',password);
     
-    const {data, error} = await signup(firstName,lastName,email, password)
+    const  {data, error} = await signup(firstName,lastName,email, password) as {data:any, error:string}
     
     // setDataCookies(data);
     if(error)

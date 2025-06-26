@@ -1,6 +1,6 @@
-import { redirect } from "react-router";
 import signup from "../utils/signup";
 import type { ActionFunction } from "react-router";
+import axios from "axios";
 const signupAction:ActionFunction = async ({request}) => {
     const formData = await request.formData();
     const firstName = formData.get('first') as string
@@ -8,30 +8,34 @@ const signupAction:ActionFunction = async ({request}) => {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
     const rpassword = formData.get('rpassword') as string
+    firstName.trim()
+    lastName.trim()
+    email.trim()
+    password.trim()
+    rpassword.trim()
+
     if(password !== rpassword)
-    {
-        console.log("Error: passwords should be identical");
-        
+    {        
         return {error: "passwords should be identical"}
     }
-    console.log("firstName", firstName);
-    console.log('lastName',lastName);
-    console.log('email',email);
-    console.log('password',password);
-    
-    const  {data, error} = await signup(firstName,lastName,email, password) as {data:any, error:string}
-    
-    // setDataCookies(data);
-    if(error)
+
+    try {
+
+        const data = await signup(firstName,lastName,email, password) 
+        console.log(data);
+        
+        return {data}
+    }
+    catch (error)
     {
         console.log('Found an error', error)
-        return {error}
-    }
-    else if(data)
-    {
-        return redirect('/login')
-    }
+        if(axios.isAxiosError(error))
+            return {error: error.message}
+        else 
+            return {error: "Unknown error"}
 
+    }
+    
 }
 
 export default signupAction;

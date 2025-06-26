@@ -1,18 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Signup from '../pages/Signup';
 import signupAction from '../actions/signupAction';
-import Login from '../pages/Login';
+import loginAction from "../actions/loginAction";
+import Registration from '../pages/Registration';
 
 export const router = createBrowserRouter([
     {
-        path:'/',
-        Component: Signup,
+        path:'/signup',
+        Component: Registration,
         action: signupAction,
-        children: [
-            {
-                path:'/login',
-                Component: Login
-            }
-        ]
+        
+    },
+    {
+        path:'/login',
+        Component: Registration,
+        action:loginAction
     }
  ]);

@@ -1,9 +1,20 @@
-const Modal = ({message, color}:{message:string, color:string}) => {
+import { useContext, type ReactNode } from "react";
+import ErrorContext, { type ErrorContextType } from "../context/errorContext";
+
+const Modal = ({children}:{children:ReactNode}) => {
+    const {errorMessage, error} = useContext(ErrorContext) as ErrorContextType
     return (
         <>
-        <div className={`w-[400px] h-[80px] bg-stone-200 p-5 border-t-2 border-t-[${color}] fixed bottom-5  right-5`} >
-            {message}
+        {children}
+        
+        {
+        error
+        &&
+        <div className={`w-[400px] h-[80px] bg-stone-200 p-5 border-t-2 border-t-red-600 fixed bottom-5  right-5`} >
+            {errorMessage}
         </div>
+        }
+
         </>
     )
 }

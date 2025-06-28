@@ -4,8 +4,8 @@ import type { movie } from "../types/movie";
 import { memo } from "react";
 
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
-const MovieGrid = () => {
-    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: popularMovies })
+const MovieGrid = ({count = 20}:{count?:number}) => {
+    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: () => popularMovies(count) })
 
     
     let content;
@@ -26,19 +26,17 @@ const MovieGrid = () => {
         
         content = data?.map((movie: movie) => {
                         return (
-                        <img key={movie.id} className="w-[150px]  rounded-2xl" src={`${IMAGE_URL}/w200${movie.poster_path}`} alt="" />
+                        <img key={movie.id} className="w-[150px] rounded-2xl" src={`${IMAGE_URL}/w200${movie.poster_path}`} alt="" />
                         )
                     })
         
     }
     
     return (
-        <div className="max-w-[1440px] mx-auto  w-dvh h-dvh">
-            <div className="flex flex-wrap gap-5 -rotate-[20deg]  w-dvh h-dvh scale-125">
+        <div className="flex gap-5 flex-wrap justify-center p-5">
                 {
                     content
                 }
-            </div>
         </div>
     )
 }

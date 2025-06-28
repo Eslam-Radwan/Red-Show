@@ -10,7 +10,7 @@ const Modal = ({children}:{children:ReactNode}) => {
         {
         error
         &&
-        <div className={`w-[400px] h-[80px] bg-stone-200 p-5 border-t-2 border-t-red-600 fixed bottom-5  right-5`} >
+        <div className={`w-[400px] h-[80px] bg-stone-200 p-5 border-t-2 border-t-red-600 fixed bottom-5  right-5 z-2`} >
             {errorMessage}
         </div>
         }

@@ -9,14 +9,6 @@ import ErrorContext, { type ErrorContextType } from "../context/errorContext";
 
 const Registration = () => {
     const {setErrorMessage, setError} = useContext(ErrorContext) as ErrorContextType
-    
-    const makeErrorModal = useCallback((errorMessage:string) => {
-    setError(true)
-    setErrorMessage(errorMessage)
-    setTimeout(() => {
-        setError(false)
-    }, 2000)    },[setError, setErrorMessage])
-
     const actionData = useActionData();
     const signupRef = useRef<HTMLDivElement>(null)
     const loginRef = useRef<HTMLDivElement>(null)
@@ -24,11 +16,18 @@ const Registration = () => {
     const {isLogin, setIsLogin} = useContext(RegistrationContext) as RegistrationContextType
 
 
+    const makeErrorModal = useCallback((errorMessage:string) => {
+        setError(true)
+        setErrorMessage(errorMessage)
+        setTimeout(() => {setError(false) }, 2000)},
+        [setError, setErrorMessage] )
+
+
     useEffect(() => {
         if (actionData?.error) {
             makeErrorModal(actionData.error)
         }
-    }, [actionData])
+    }, [actionData, makeErrorModal])
 
     
     const loginButton = () => {
@@ -58,7 +57,7 @@ const Registration = () => {
             </div>
             <div className="flex-1/2 h-dvh relative overflow-hidden">
                 <span className="absolute z-1 w-full h-dvh bg-gradient-to-b  from-black from-5% via-transparent to-black to-95%"></span>
-                <MovieGrid />
+                <div className="-rotate-[20deg]"><MovieGrid /></div>
             </div>
             <div ref={signupRef} className={` transition-all duration-200 ease-out overflow-hidden w-[0px] flex gap-4 flex-col h-dvh rounded-l-4xl bg-white justify-center items-center `}>
                 <SignupForm loginButton={loginButton}/>

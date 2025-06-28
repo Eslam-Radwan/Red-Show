@@ -22,8 +22,8 @@ const loginAction:ActionFunction = async ({request}) => {
     {
          if(axios.isAxiosError(error))
          {
-             console.log(error.message);
-             return {error: error.message}
+             console.log(error);
+             return {error: error.response?.data.error}
          }
          else
          {

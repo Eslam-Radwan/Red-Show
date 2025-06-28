@@ -1,9 +1,10 @@
-import { Form, redirect, useActionData, useSubmit } from "react-router"
+import { Form, redirect, useActionData } from "react-router"
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useContext, useEffect, useRef, useState, type FormEvent } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import RegistrationContext, { type RegistrationContextType } from "../context/registrationContext";
+import ErrorContext, { type ErrorContextType } from "../context/errorContext";
 
 
 interface singupInterface {
@@ -14,39 +15,22 @@ const SignupForm = ({loginButton}: singupInterface) => {
     const [isLoading, setIsLoading] = useState(false)
     const actionData = useActionData();
     const { setIsLogin} = useContext(RegistrationContext) as RegistrationContextType
+    const {setErrorMessage, setError} = useContext(ErrorContext) as ErrorContextType
     const formRef = useRef<HTMLFormElement>(null)
-    const submit = useSubmit()
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault()
+    const handleSubmit = () => {
         setIsLoading(true)
-        const formData = new FormData(formRef.current as HTMLFormElement)
-        const firstName = (formData.get('first') as string).trim()
-        const lastName = (formData.get('last') as string).trim()
-        const email = (formData.get('email') as string).trim()
-        const password = (formData.get('password') as string).trim()
-        const rpassword = (formData.get('rpassword') as string).trim()
-        
-        
-        if(firstName && lastName && email && password && rpassword)
-        {
-            submit(formRef.current, { method: "post" });
-        }
-
     }
 
     useEffect(() => {
+        setIsLoading(false)
         if(actionData?.data)
         {
-            setIsLoading(false)
             setIsLogin(true);
             redirect('/login')
         }
-        else if(actionData?.error)
-        {
-            setIsLoading(false)
-        }
-    }, [actionData])
+
+    }, [actionData, setIsLogin, setErrorMessage, setError])
 
     return (
         <div className="flex flex-col gap-5 items-center">
@@ -55,7 +39,7 @@ const SignupForm = ({loginButton}: singupInterface) => {
             <Form ref={formRef} onSubmit={handleSubmit} method="post" className="grid gap-5 justify-center items-center content-center">
                 <input required className="border-b outline-none p-2 border-gray-300 col-start-1 " type="text" name="first" id="first" placeholder="First Name" />
                 <input required className="border-b outline-none p-2 border-gray-300 col-start-2" type="text" name="last" id="last" placeholder="Last Name" />
-                <input required className="border-b outline-none p-2 border-gray-300 col-span-2" type="text" name="email" id="email" placeholder="Email Address" />
+                <input required className="border-b outline-none p-2 border-gray-300 col-span-2" type="email" name="email" id="email" placeholder="Email Address" />
                 <input required className="border-b outline-none p-2 border-gray-300 col-span-2" type="password" name="password" id="password" placeholder="Password" />
                 <input required className="border-b outline-none p-2 border-gray-300 col-span-2" type="password" name="rpassword" id="rpassword" placeholder="Repeat Password" />
                 <button type="submit" className="bg-black text-white rounded-2xl py-3 px-10 col-span-2 w-max justify-self-center  flex gap-3 items-center">{isLoading && <AiOutlineLoading3Quarters className="animate-spin text-xl" />}Sign Up</button>

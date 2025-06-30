@@ -57,7 +57,7 @@ const Registration = () => {
             </div>
             <div className="flex-1/2 h-dvh relative overflow-hidden">
                 <span className="absolute z-1 w-full h-dvh bg-gradient-to-b  from-black from-5% via-transparent to-black to-95%"></span>
-                <div className="-rotate-[20deg]"><MovieGrid /></div>
+                <div className="-rotate-[20deg] w-[1000px] scale-[150%]"><MovieGrid/></div>
             </div>
             <div ref={signupRef} className={` transition-all duration-200 ease-out overflow-hidden w-[0px] flex gap-4 flex-col h-dvh rounded-l-4xl bg-white justify-center items-center `}>
                 <SignupForm loginButton={loginButton}/>

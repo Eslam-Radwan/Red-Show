@@ -2,10 +2,18 @@ import { useQuery } from "@tanstack/react-query";
 import { popularMovies } from "../utils/movies";
 import type { movie } from "../types/movie";
 import { memo } from "react";
+import { getImage } from "../utils/common";
 
-const IMAGE_URL = import.meta.env.VITE_IMAGE_URL;
-const MovieGrid = ({count = 20}:{count?:number}) => {
-    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies'], queryFn: () => popularMovies(count) })
+
+
+interface MovieGridInterface {
+    count?:number;
+    square?: boolean;
+    generId?: number
+}
+const MovieGrid = ({count = 20, square, generId}:MovieGridInterface) => {
+    const { data, isLoading, isError} = useQuery({ queryKey: ['popularMovies', count], queryFn: () => popularMovies(count) })
+    
 
     
     let content;
@@ -25,9 +33,10 @@ const MovieGrid = ({count = 20}:{count?:number}) => {
         console.log(data);
         
         content = data?.map((movie: movie) => {
-                        return (
-                        <img key={movie.id} className="w-[150px] rounded-2xl" src={`${IMAGE_URL}/w200${movie.poster_path}`} alt="" />
-                        )
+                        return !square? (<img key={movie.id} className="w-[150px] rounded-2xl" src={getImage(movie.poster_path)} alt="" />):
+                                (<img key={movie.id} className="w-[150px] h-[150px] object-cover rounded-2xl" src={getImage(movie.poster_path)} alt="" />)
+
+
                     })
         
     }

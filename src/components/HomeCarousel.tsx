@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router";
 import type { movie } from "../types/movie";
 import { useRef } from "react";
 
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL
-const HomeCarousel = ({data, title}:{title:string, data: movie[]}) => {
+const HomeCarousel = ({data, title, isMovie}:{title:string, data: movie[], isMovie: boolean}) => {
     const imageContainer = useRef<HTMLDivElement>(null)
+    const navigate = useNavigate();
 
     const left = () => {
         const transform = (imageContainer.current as HTMLDivElement).style.transform;
@@ -38,7 +40,7 @@ const HomeCarousel = ({data, title}:{title:string, data: movie[]}) => {
 
                 data?.map((ele) => {
                     return (
-                    <img className="w-[200px] hover:scale-[80%] transition-all" src={`${IMAGE_URL}/w200${ele.poster_path}`} alt="" />
+                    <img id={ele.id} onClick={isMovie? () => navigate(`/movie/${ele.id}`):() => navigate(`/show/${ele.id}`)} className="w-[200px] hover:scale-[80%] transition-all" src={`${IMAGE_URL}/w200${ele.poster_path}`} alt="" />
                     )
                 })
             }

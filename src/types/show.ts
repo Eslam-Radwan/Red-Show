@@ -1,9 +1,9 @@
-export interface movie {
+export interface show {
     id: string,
-    title: string,
+    name: string,
     poster_path: string,
     overview: string,
-    release_date: string,
+    last_air_date: string,
     video: boolean,
      
 }

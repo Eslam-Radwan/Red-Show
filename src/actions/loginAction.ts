@@ -14,6 +14,8 @@ const loginAction:ActionFunction = async ({request}) => {
 
         const data = await login(email, password)
         console.log(data);
+
+        localStorage.setItem('user',JSON.stringify(data))
         
         // save data to cookies
         return redirect('/')

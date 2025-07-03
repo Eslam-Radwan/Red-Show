@@ -9,7 +9,7 @@ export const popularMovies = async (count: number) => {
         return data.results
     } catch (error) {
         console.error('Error fetching popular movies:', error)
-        return []
+        throw error
     }
 }
 
@@ -21,7 +21,7 @@ export const topMovies = async (count: number) => {
         return data.results
     } catch (error) {
         console.error('Error fetching top movies:', error)
-        return []
+        throw error
     }
 }
 
@@ -32,7 +32,7 @@ export const movieDetail = async (id: string) => {
         return data
     } catch (error) {
         console.error(`Error fetching movie detail for ID ${id}:`, error)
-        return null
+        throw error
     }
 }
 
@@ -44,8 +44,20 @@ export const moviesGenres = async () => {
     }
     catch (error)
     {
-        console.error('Error whilte fetching movies genres', error);
-        return null;
+        console.error('Error while fetching movies genres', error);
+        throw error;
 
+    }
+}
+
+export const moviesWithGenre = async (genreId: number, count: number) => {
+    try {
+        const {data} = await axios.get(`${API_BASE_URL}/api/movies/discover?genreId=${genreId}&count=${count}`)
+        return data.results;
+    }
+    catch(error)
+    {
+        console.error('Error while fetching movies with genres', error);
+        throw error;
     }
 }

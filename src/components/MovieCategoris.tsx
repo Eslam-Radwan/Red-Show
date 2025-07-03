@@ -1,37 +1,83 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { moviesGenres } from "../utils/movies";
 import MovieGrid from "./MovieGrid";
+import { FaArrowRightLong } from "react-icons/fa6";
+import Slider from "./Slider";
 
+
+interface Genre {
+    id: number;
+    name: string;
+}
 const MovieCategoris = () => {
+    const catContainer = useRef<HTMLDivElement>(null)
 
-    const [genres, setGenres] = useState()
-   useEffect(()=>{
-   (async()=>{
-    const data = await moviesGenres();
-    console.log(data);
-    
-    setGenres (data.genres);   
-   })()
-   },[])
-    
+    const [genres, setGenres] = useState<[Genre]>()
+    useEffect(() => {
+        (async () => {
+            const data = await moviesGenres();
+            console.log(data);
+
+            setGenres(data.genres);
+        })()
+    }, [])
+
+    const slideRight = () => {
+
+        if(catContainer.current){
+            const leftValue = parseInt(catContainer.current.style.transform.match(/-?\d+/)?.[0] || "0", 10);        
+            catContainer.current.style.transform = `translateX(${Math.max(-(catContainer.current?.scrollWidth - 1440),leftValue - 1440)}px)`;
+        }
+        
+        
+
+    }
+    const slideLeft = () => {
+        if(catContainer.current)
+        {
+
+            const leftValue = parseInt(catContainer.current.style.transform.match(/-?\d+/)?.[0] || "0", 10);
+            catContainer.current.style.transform = `translateX(${Math.min(0,leftValue + 1440)}px)`
+        }
+    }
+
     return (
-        <div>
-            <h1>Explore our wide variety of categories</h1>
-            <p>Whether you're looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new</p>
-           <div className="flex gap-5 p-5 overflow-hidden">
-            {
-                genres?.map((genre)=>{
-                    return(
-                        <div id={genre.id}>
-                            <div className="min-w-[400px] bg-black text-white rounded-2xl p-5">
-                                    <MovieGrid genreId={genre.id} square={true} count={4}/>
-                                {genre.name}
-                            </div>
-                        </div>
-                    )
-                })
-            }
-        </div>
+        <div className="">
+            <div className="max-w-[1440px] mx-auto">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-5xl">Explore our wide variety of categories</h1>
+                        <p className="text-[#999999]">Whether you're looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new</p>
+                    </div>
+                    <div>
+                        {
+                        genres &&
+                        <Slider leftClick={slideLeft} rightClick={slideRight} ItemsPerPage={4} totalItems={genres.length}/>
+                        }
+                    </div>
+                </div>
+                <div className="overflow-hidden ">
+                    <div ref={catContainer}  className="flex gap-[60px] p-5 transition-all">
+
+                    {
+                        genres?.map((genre) => {
+                            
+                            return (
+                                <div key={genre.id}>
+                                    <div className="transition-transform min-w-[300px] bg-[#1A1A1A] text-white rounded-2xl py-5 hover:-translate-y-3">
+                                        <MovieGrid genreId={genre.id} square={true} count={4} />
+                                        <div className="mx-10 mt-3 items-center justify-between flex">
+                                            <span>{genre.name}</span>
+                                            <span><FaArrowRightLong/></span>
+                                            </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

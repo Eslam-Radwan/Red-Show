@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Hero from "../components/Hero"; 
-import MovieCategoris from "../components/MovieCategoris";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Hero from "./components/Hero"; 
+import MovieCategoris from "./sections/MovieCategoris";
+import Devices from "./sections/Devices";
+import FAQ from "./sections/FAQ";
 const Home = () => {
     const div = useRef<HTMLDivElement>(null)
 
@@ -14,11 +16,11 @@ const Home = () => {
     },[])
   return (
         <div className="bg-[#141414] text-white transition-all">
-            <div className="w-[1440px] relative mx-auto"><Header/></div>
+            <Header/>
             <Hero/>
-            <div ref={div} className="relative transition-all ease-linear">
-                <MovieCategoris/>
-            </div>  
+            <div ref={div} className="relative transition-all ease-linear"><MovieCategoris/></div>
+            <Devices/> 
+            <FAQ/>
             <Footer/>
         </div>
     )

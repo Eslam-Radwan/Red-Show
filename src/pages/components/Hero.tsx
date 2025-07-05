@@ -1,5 +1,5 @@
 import MovieGrid from "./MovieGrid";
-import logo2 from '../assets/Logo2.svg'
+import logo2 from '../../assets/Logo2.svg'
 const Hero = () => {
  return (
     <>

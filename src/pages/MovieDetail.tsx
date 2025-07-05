@@ -3,8 +3,8 @@ import { movieDetail } from "../utils/movies";
 import { useParams } from "react-router";
 import { getImage } from "../utils/common";
 import type { movie } from "../types/movie";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const MovieDetail = () => {
     const {id} = useParams() 

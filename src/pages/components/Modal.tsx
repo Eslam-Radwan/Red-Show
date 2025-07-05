@@ -1,5 +1,5 @@
 import { useContext, type ReactNode } from "react";
-import ErrorContext, { type ErrorContextType } from "../context/errorContext";
+import ErrorContext, { type ErrorContextType } from "../../context/errorContext";
 
 const Modal = ({children}:{children:ReactNode}) => {
     const {errorMessage, error} = useContext(ErrorContext) as ErrorContextType

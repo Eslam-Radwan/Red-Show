@@ -3,8 +3,8 @@ import signupAction from '../actions/signupAction';
 import loginAction from "../actions/loginAction";
 import Registration from '../pages/Registration';
 import Home from '../pages/Home';
-import MovieDetail from '../components/MovieDetail';
-import TVDetail from '../components/TVDetail';
+import MovieDetail from '../pages/MovieDetail';
+import TVDetail from '../pages/TVDetail';
 
 export const router = createBrowserRouter([
     {

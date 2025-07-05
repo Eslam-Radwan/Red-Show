@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { moviesGenres } from "../utils/movies";
-import MovieGrid from "./MovieGrid";
+import { moviesGenres } from "../../utils/movies";
+import MovieGrid from "../components/MovieGrid";
 import { FaArrowRightLong } from "react-icons/fa6";
-import Slider from "./Slider";
+import Slider from "../components/Slider";
 
 
 interface Genre {
@@ -12,7 +12,7 @@ interface Genre {
 const MovieCategoris = () => {
     const catContainer = useRef<HTMLDivElement>(null)
 
-    const [genres, setGenres] = useState<[Genre]>()
+    const [genres, setGenres] = useState<Genre[]>()
     useEffect(() => {
         (async () => {
             const data = await moviesGenres();
@@ -24,9 +24,9 @@ const MovieCategoris = () => {
 
     const slideRight = () => {
 
-        if(catContainer.current){
+        if(catContainer.current && genres){
             const leftValue = parseInt(catContainer.current.style.transform.match(/-?\d+/)?.[0] || "0", 10);        
-            catContainer.current.style.transform = `translateX(${Math.max(-(catContainer.current?.scrollWidth - 1440),leftValue - 1440)}px)`;
+            catContainer.current.style.transform = `translateX(${Math.max(-(1440 * (genres?.length / 4 - 1)),leftValue - 1440)}px)`;
         }
         
         
@@ -35,7 +35,6 @@ const MovieCategoris = () => {
     const slideLeft = () => {
         if(catContainer.current)
         {
-
             const leftValue = parseInt(catContainer.current.style.transform.match(/-?\d+/)?.[0] || "0", 10);
             catContainer.current.style.transform = `translateX(${Math.min(0,leftValue + 1440)}px)`
         }
@@ -57,7 +56,7 @@ const MovieCategoris = () => {
                     </div>
                 </div>
                 <div className="overflow-hidden ">
-                    <div ref={catContainer}  className="flex gap-[60px] p-5 transition-all">
+                    <div ref={catContainer}  className="flex gap-[60px] py-5 transition-all">
 
                     {
                         genres?.map((genre) => {

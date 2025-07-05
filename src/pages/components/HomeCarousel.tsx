@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import type { movie } from "../types/movie";
+import type { movie } from "../../types/movie";
 import { useRef } from "react";
 
 const IMAGE_URL = import.meta.env.VITE_IMAGE_URL

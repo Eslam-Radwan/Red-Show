@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { popularMovies, moviesWithGenre } from "../utils/movies";
-import type { movie } from "../types/movie";
+import { popularMovies, moviesWithGenre } from "../../utils/movies";
+import type { movie } from "../../types/movie";
 import { memo } from "react";
-import { getImage } from "../utils/common";
+import { getImage } from "../../utils/common";
 
 
 

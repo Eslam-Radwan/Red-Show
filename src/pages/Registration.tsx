@@ -1,8 +1,8 @@
 import { useActionData } from "react-router";
-import MovieGrid from "../components/MovieGrid";
+import MovieGrid from "./components/MovieGrid";
 import { useCallback, useContext, useEffect, useRef } from "react";
-import LoginForm from "../components/LoginForm";
-import SignupForm from "../components/SignupForm";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 import RegistrationContext, { type RegistrationContextType } from "../context/registrationContext";
 import ErrorContext, { type ErrorContextType } from "../context/errorContext";
 

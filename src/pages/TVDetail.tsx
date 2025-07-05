@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getImage } from "../utils/common";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { tvDetail } from "../utils/shows";
 import type { show } from "../types/show";
 

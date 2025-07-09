@@ -42,11 +42,11 @@ const MovieGrid = ({count = 20, square, genreId}:MovieGridInterface) => {
     }
     
     return (
-        <div className="flex gap-3 flex-wrap justify-center ">
+        <>
                 {
                     content
                 }
-        </div>
+        </>
     )
 }
 

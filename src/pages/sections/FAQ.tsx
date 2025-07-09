@@ -2,9 +2,10 @@ import Accordion from "../components/Accordion";
 
 const FAQ = () => {
     return (
-
-        <div className="max-w-[1440px] mx-auto my-10 grid grid-cols-2 gap-3">
-
+        <div className="max-w-[1440px] mx-auto my-[100px]   ">
+        <h1 className="text-5xl mb-10">Frequently Asked Questions</h1>
+        <p>Got questions? We've got answers! Check out our FAQ section to find answers to the most common questions about StreamVibe.</p>
+        <div className=" grid grid-cols-2 gap-3">
                 < Accordion 
                 title="What is StreamVibe?"
                 number="01"
@@ -37,6 +38,7 @@ const FAQ = () => {
                 title="What are the StreamVibe payment methods?"
                 number="08"
                 description="StreamVibe is a streaming service that allows you to watch movies and shows on demand."/>
+        </div>
         </div>
     )
 }

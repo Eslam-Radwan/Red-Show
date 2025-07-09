@@ -42,10 +42,10 @@ const MovieCategoris = () => {
 
     return (
         <div className="">
-            <div className="max-w-[1440px] mx-auto">
+            <div className="max-w-[1440px] mx-auto my-5">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-5xl">Explore our wide variety of categories</h1>
+                        <h1 className="text-5xl mb-5">Explore our wide variety of categories</h1>
                         <p className="text-[#999999]">Whether you're looking for a comedy to make you laugh, a drama to make you think, or a documentary to learn something new</p>
                     </div>
                     <div>
@@ -64,7 +64,9 @@ const MovieCategoris = () => {
                             return (
                                 <div key={genre.id}>
                                     <div className="transition-transform min-w-[300px] bg-[#1A1A1A] text-white rounded-2xl py-5 hover:-translate-y-3">
+                                       <div className="flex flex-wrap gap-5 justify-center">
                                         <MovieGrid genreId={genre.id} square={true} count={4} />
+                                       </div>
                                         <div className="mx-10 mt-3 items-center justify-between flex">
                                             <span>{genre.name}</span>
                                             <span><FaArrowRightLong/></span>
